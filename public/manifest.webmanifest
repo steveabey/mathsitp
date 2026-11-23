@@ -1,0 +1,30 @@
+{
+  "id": "/",
+  "name": "ITP Studio",
+  "short_name": "ITP Studio",
+  "description": "Interactive maths teaching programs for the classroom board.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#0f3d45",
+  "theme_color": "#0f3d45",
+  "categories": [
+    "education"
+  ],
+  "lang": "en-GB",
+  "icons": [
+    {
+      "src": "favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "maskable"
+    }
+  ]
+}

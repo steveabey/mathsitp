@@ -1,7 +1,7 @@
 {
   // Cloudflare deploys everything in ./public as the website.
   // "name" must match the Worker's name in Cloudflare (it sets the web address).
-  "name": "itpmaths",
+  "name": "mathsitp",
   "compatibility_date": "2026-11-01",
   "assets": {
     "directory": "./public",

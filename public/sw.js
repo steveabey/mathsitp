@@ -1,7 +1,7 @@
 /* ITP Studio service worker: keeps the app working offline and lets it update itself.
    dist.py fills in VERSION (the build time) and FILES. A new deploy changes VERSION,
    so the browser sees a new worker, the page offers "Update", and old caches are removed. */
-const VERSION = '20261123-204202';
+const VERSION = '20261124-175500';
 const APP = 'itp-app-' + VERSION, FONTS = 'itp-fonts';
 const FILES = ["./", "index.html", "favicon.svg", "manifest.webmanifest"];
 
@@ -29,10 +29,15 @@ self.addEventListener('fetch', e => {
     return;
   }
   if (url.origin !== location.origin) return;
-  // pages (any #program link) open the saved app; the version only changes through an update
+  // pages: try the live site first (so a broken saved copy can never lock anyone out),
+  // fall back to the saved app when offline, and finally to a plain offline message
   if (req.mode === 'navigate') {
-    e.respondWith(caches.open(APP).then(c => c.match('index.html')).then(hit => hit || fetch(req)).catch(() => caches.match('index.html')));
+    e.respondWith(fetch(req).then(r => {
+      if (r && r.ok) { const copy = r.clone(); caches.open(APP).then(c => c.put('index.html', copy)); }
+      return r;
+    }).catch(async () => (await caches.match('index.html', { ignoreSearch: true })) || (await caches.match('./')) ||
+      new Response('<!doctype html><meta name=viewport content="width=device-width"><body style="font-family:system-ui;padding:40px;text-align:center"><h1>ITP Studio</h1><p>You appear to be offline. Reconnect and refresh to open ITP Studio.</p></body>', { headers: { 'Content-Type': 'text/html' } })));
     return;
   }
-  e.respondWith(caches.open(APP).then(c => c.match(req, { ignoreSearch: true })).then(hit => hit || fetch(req)));
+  e.respondWith(caches.open(APP).then(c => c.match(req, { ignoreSearch: true })).then(hit => hit || fetch(req)).catch(() => fetch(req)));
 });

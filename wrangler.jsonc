@@ -3,6 +3,9 @@
   // "name" must match the Worker's name in Cloudflare (it sets the web address).
   "name": "mathsitp",
   "compatibility_date": "2026-11-01",
+  // Keep the free mathsitp.<account>.workers.dev address switched on.
+  "workers_dev": true,
+  "preview_urls": true,
   "assets": {
     "directory": "./public",
     "not_found_handling": "single-page-application"

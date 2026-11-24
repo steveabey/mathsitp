@@ -1,5 +1,5 @@
 # Publishes the ./public folder to GitHub Pages every time main changes.
-# Back-up address: https://steveabey.github.io/mathsitp/
+# Spare address: https://steveabey.github.io/mathsitp/ (main address: https://mathsitp.pages.dev/)
 name: Deploy to GitHub Pages
 on:
   push:
